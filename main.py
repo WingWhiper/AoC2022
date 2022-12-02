@@ -1,3 +1,5 @@
+import const
+
 def get_biggest_number(fileName):
     data = open(fileName)
     big_number = 0
