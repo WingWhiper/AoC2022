@@ -32,6 +32,7 @@ def get_top_three_total(fileName):
     totals_list.remove(max(totals_list))
     top_three_total += max(totals_list)
     totals_list.remove(max(totals_list))
+    data.close()
     return top_three_total
 
 
@@ -64,8 +65,9 @@ def determine_winner(opponents_choice, player_choice):
     return game_result
 
 
-def get_round_score(round_result, player_choice):
+def get_round_score(opponent_choice, player_choice):
     total_points = 0
+    round_result = determine_winner(opponent_choice, player_choice)
     if round_result == 'Won':
         total_points += const.WON
     elif round_result == 'Tie':
@@ -83,9 +85,20 @@ def get_round_score(round_result, player_choice):
     return total_points
 
 
+def get_total_score(file):
+    data = open(file)
+    total_score = 0
+    for i in data:
+        choices = i.split()
+        total_score += get_round_score(choices[0], choices[1])
+    return total_score
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
     top_three_total = get_top_three_total('venv/AoC_D1_P1.txt')
+    score = get_total_score('venv/AoC_D2_P1.txt')
     print("Day one answer 1: " + str(biggest_number))
     print("Day one answer 2: " + str(top_three_total))
+    print("Day two answer 1: " + str(score))
