@@ -1,5 +1,6 @@
 import const
 
+
 def get_biggest_number(fileName):
     data = open(fileName)
     big_number = 0
@@ -36,7 +37,7 @@ def get_top_three_total(fileName):
     return top_three_total
 
 
-def determine_winner(opponents_choice, player_choice):
+def determine_winner_incorrectly(opponents_choice, player_choice):
     o = opponents_choice
     p = player_choice
     game_result = ''
@@ -65,15 +66,50 @@ def determine_winner(opponents_choice, player_choice):
     return game_result
 
 
-def get_round_score(opponent_choice, player_choice):
+def determine_winner_correctly(opponent_choice, round_choice):
+    player_choice = ''
+    round_result = ''
+    match opponent_choice:
+        case 'A':
+            if round_choice == 'X':
+                round_result = 'Lost'
+                player_choice = 'Z'
+            elif round_choice == 'Y':
+                round_result = 'Tie'
+                player_choice = 'X'
+            elif round_choice == 'Z':
+                round_result = 'Won'
+                player_choice = 'Y'
+        case 'B':
+            if round_choice == 'X':
+                round_result = 'Lost'
+                player_choice = 'X'
+            elif round_choice == 'Y':
+                round_result = 'Tie'
+                player_choice = 'Y'
+            elif round_choice == 'Z':
+                round_result = 'Won'
+                player_choice = 'Z'
+        case 'C':
+            if round_choice == 'X':
+                round_result = 'Lost'
+                player_choice = 'Y'
+            elif round_choice == 'Y':
+                round_result = 'Tie'
+                player_choice = 'Z'
+            elif round_choice == 'Z':
+                round_result = 'Won'
+                player_choice = 'X'
+    return round_result, player_choice
+
+
+def get_round_score(opponent_choice, choice, doCorrectly):
     total_points = 0
-    round_result = determine_winner(opponent_choice, player_choice)
-    if round_result == 'Won':
-        total_points += const.WON
-    elif round_result == 'Tie':
-        total_points += const.TIED
-    elif round_result == 'Lost':
-        total_points += const.LOST
+    if doCorrectly:
+        round_result, player_choice = determine_winner_correctly(opponent_choice, choice)
+    else:
+        round_result = determine_winner_incorrectly(opponent_choice, choice)
+        player_choice = choice
 
     if player_choice == 'X':
         total_points += const.ROCK
@@ -82,15 +118,21 @@ def get_round_score(opponent_choice, player_choice):
     elif player_choice == 'Z':
         total_points += const.SCISSORS
 
+    if round_result == 'Won':
+        total_points += const.WON
+    elif round_result == 'Tie':
+        total_points += const.TIED
+    elif round_result == 'Lost':
+        total_points += const.LOST
     return total_points
 
 
-def get_total_score(file):
+def get_total_score(file, doCorrectly):
     data = open(file)
     total_score = 0
     for i in data:
         choices = i.split()
-        total_score += get_round_score(choices[0], choices[1])
+        total_score += get_round_score(choices[0], choices[1], doCorrectly)
     return total_score
 
 
@@ -98,7 +140,9 @@ def get_total_score(file):
 if __name__ == '__main__':
     biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
     top_three_total = get_top_three_total('venv/AoC_D1_P1.txt')
-    score = get_total_score('venv/AoC_D2_P1.txt')
+    wrongScore = get_total_score('venv/AoC_D2_P1.txt', False)
+    correctScore = get_total_score('venv/AoC_D2_P1.txt', True)
     print("Day one answer 1: " + str(biggest_number))
     print("Day one answer 2: " + str(top_three_total))
-    print("Day two answer 1: " + str(score))
+    print("Day two answer 1: " + str(wrongScore))
+    print("Day two answer 2: " + str(correctScore))
