@@ -4,16 +4,18 @@ def print_hi(name):
     print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
 
 
-def get_biggest_number(list_Of_Numbers):
+def get_biggest_number(fileName):
+    data = open(fileName)
     big_number = 0
     total = 0
-    for i in list_Of_Numbers:
+    for i in data:
         if i.startswith("\n"):
             if total > big_number:
                 big_number = total
             total = 0
         else:
             total = total + int(i)
+    data.close()
     return big_number
 
 def get_next_biggest_number(bigger_number, list_Of_Numbers):
@@ -32,12 +34,9 @@ def get_next_biggest_number(bigger_number, list_Of_Numbers):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    file = open('/Users/josephsergent/PycharmProjects/AoC22/venv/AoC_D1_P1.txt')
-    biggest_number = get_biggest_number(file)
-    second_biggest = get_next_biggest_number(biggest_number, file)
-    print("Second number: " + str(second_biggest))
-    third_biggest = get_next_biggest_number(second_biggest, file)
-    top_three = int(biggest_number) + int(second_biggest) + int(third_biggest)
-    print(top_three)
-    print_hi('Joe')
-    file.close()
+    biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
+    #second_biggest = get_next_biggest_number(biggest_number, 'venv/AoC_D1_P1.txt')
+    #print("Second number: " + str(second_biggest))
+    #third_biggest = get_next_biggest_number(second_biggest, 'venv/AoC_D1_P1.txt')
+    #top_three = int(biggest_number) + int(second_biggest) + int(third_biggest)
+    print(biggest_number)
