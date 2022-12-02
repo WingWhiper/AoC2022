@@ -1,9 +1,3 @@
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
 def get_biggest_number(fileName):
     data = open(fileName)
     big_number = 0
@@ -18,25 +12,30 @@ def get_biggest_number(fileName):
     data.close()
     return big_number
 
-def get_next_biggest_number(bigger_number, list_Of_Numbers):
-    big_number = bigger_number
+
+def get_top_three_total(fileName):
+    data = open(fileName)
     total = 0
-    next_biggest = 0
-    for i in list_Of_Numbers:
+    totals_list = []
+    top_three_total = 0
+    for i in data:
         if i.startswith("\n"):
-            if next_biggest > total < big_number:
-                next_biggest = total
-                total = 0
+            totals_list.append(total)
+            total = 0
         else:
             total = total + int(i)
-    return next_biggest
+    top_three_total += max(totals_list)
+    totals_list.remove(max(totals_list))
+    top_three_total += max(totals_list)
+    totals_list.remove(max(totals_list))
+    top_three_total += max(totals_list)
+    totals_list.remove(max(totals_list))
+    return top_three_total
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
-    #second_biggest = get_next_biggest_number(biggest_number, 'venv/AoC_D1_P1.txt')
-    #print("Second number: " + str(second_biggest))
-    #third_biggest = get_next_biggest_number(second_biggest, 'venv/AoC_D1_P1.txt')
-    #top_three = int(biggest_number) + int(second_biggest) + int(third_biggest)
-    print(biggest_number)
+    top_three_total = get_top_three_total('venv/AoC_D1_P1.txt')
+    print("Day one answer 1: " + str(biggest_number))
+    print("Day one answer 2: " + str(top_three_total))
