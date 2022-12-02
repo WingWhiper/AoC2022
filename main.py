@@ -35,6 +35,35 @@ def get_top_three_total(fileName):
     return top_three_total
 
 
+def determine_winner(opponents_choice, player_choice):
+    o = opponents_choice
+    p = player_choice
+    game_result = ''
+    match o:
+        case 'A':
+            if p == 'X':
+                game_result = 'Tie'
+            elif p == 'Y':
+                game_result = 'Won'
+            elif p == 'Z':
+                game_result = 'Lost'
+        case 'B':
+            if p == 'X':
+                game_result = 'Lost'
+            elif p == 'Y':
+                game_result = 'Tie'
+            elif p == 'Z':
+                game_result = 'Won'
+        case 'C':
+            if p == 'X':
+                game_result = 'Won'
+            elif p == 'Y':
+                game_result = 'Lost'
+            elif p == 'Z':
+                game_result = 'Tie'
+    return game_result
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
