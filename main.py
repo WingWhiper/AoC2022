@@ -64,6 +64,25 @@ def determine_winner(opponents_choice, player_choice):
     return game_result
 
 
+def get_round_score(round_result, player_choice):
+    total_points = 0
+    if round_result == 'Won':
+        total_points += const.WON
+    elif round_result == 'Tie':
+        total_points += const.TIED
+    elif round_result == 'Lost':
+        total_points += const.LOST
+
+    if player_choice == 'X':
+        total_points += const.ROCK
+    elif player_choice == 'Y':
+        total_points += const.PAPER
+    elif player_choice == 'Z':
+        total_points += const.SCISSORS
+
+    return total_points
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
