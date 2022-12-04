@@ -138,7 +138,6 @@ def get_total_score(file, do_correctly):
 
 def open_rucksack(rucksack):
     compartment = [rucksack[:len(rucksack) // 2], rucksack[len(rucksack) // 2:]]
-    print()
     return compartment
 
 
@@ -160,17 +159,12 @@ def compare_compartments(rucksack):
 def get_priority_value(matching_priority_list):
     total_value = 0
     for i in matching_priority_list:
-        print(i[0])
         if i[0].isupper():
-            print("Is was upper")
             total_value += 26
 
         for o in const.ITEM_PRIORITY:
             if i[0].lower() == o:
-                print(int(const.ITEM_PRIORITY.index(o)))
                 total_value += int(const.ITEM_PRIORITY.index(o)) + 1
-                print("total value: " + str(total_value))
-    print(total_value)
     return total_value
 
 
@@ -180,7 +174,6 @@ def reorganize_rucksacks(file):
     for i in rucksacks:
         matched_priorities.append(compare_compartments(i))
     priority_total = get_priority_value(matched_priorities)
-    print(priority_total)
     rucksacks.close()
     return priority_total
 
