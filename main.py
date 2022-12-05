@@ -168,6 +168,14 @@ def get_priority_value(matching_priority_list):
     return total_value
 
 
+def get_rucksack_group(file):
+    rucksacks = open(file)
+    rucksack_count = 0
+    data = rucksacks.readlines()
+    rucksacks.close()
+    return data
+
+
 def reorganize_rucksacks(file):
     rucksacks = open(file)
     matched_priorities = []
@@ -185,8 +193,10 @@ if __name__ == '__main__':
     wrongScore = get_total_score('venv/AoC_D2_P1.txt', False)
     correctScore = get_total_score('venv/AoC_D2_P1.txt', True)
     priority_total = reorganize_rucksacks('venv/AoC_D3_P1.txt')
+    badge_priority_total = get_rucksack_group('venv/AoC_D3_P1.txt')
     print("Day one answer 1: " + str(biggest_number))
     print("Day one answer 2: " + str(top_three_total))
     print("Day two answer 1: " + str(wrongScore))
     print("Day two answer 2: " + str(correctScore))
     print("Day three answer 1: " + str(priority_total))
+    print("Day three answer 2: " + str(badge_priority_total))
