@@ -186,6 +186,23 @@ def reorganize_rucksacks(file):
     return priority_total
 
 
+# Testing out chatGPT's ability to solve this
+# Not written by me
+def find_badge_priorities(filename):
+    with open(filename, 'r') as f:
+        lines = f.read().strip().split('\n')
+
+    priorities = {chr(i): i - ord('a') + 1 for i in range(ord('a'), ord('z') + 1)}
+    priorities.update({chr(i): i - ord('A') + 27 for i in range(ord('A'), ord('Z') + 1)})
+
+    groups = []
+    for i in range(0, len(lines), 3):
+        group = lines[i:i + 3]
+        badges = set(group[0]) & set(group[1]) & set(group[2])
+        groups.append((badges.pop(), group))
+    return sum(priorities[badge] for badge, _ in groups)
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     biggest_number = get_biggest_number('venv/AoC_D1_P1.txt')
@@ -193,7 +210,7 @@ if __name__ == '__main__':
     wrongScore = get_total_score('venv/AoC_D2_P1.txt', False)
     correctScore = get_total_score('venv/AoC_D2_P1.txt', True)
     priority_total = reorganize_rucksacks('venv/AoC_D3_P1.txt')
-    badge_priority_total = get_rucksack_group('venv/AoC_D3_P1.txt')
+    badge_priority_total = find_badge_priorities('venv/AoC_D3_P1.txt')
     print("Day one answer 1: " + str(biggest_number))
     print("Day one answer 2: " + str(top_three_total))
     print("Day two answer 1: " + str(wrongScore))
